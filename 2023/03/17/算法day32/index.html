@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>算法day32- | Eddie's Space</title><meta name="keywords" content="算法,贪心"><meta name="author" content="EddieChengjun"><meta name="copyright" content="EddieChengjun"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="股票最佳时机II题目链接：https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;best-time-to-buy-and-sell-stock-ii&#x2F; 看题解前思路：局部最优是卖出一支盈利的股票，全局最优是全部卖出盈利的利润加起来. 用第二天的股价减去第一天的股价可以看到是否在对应天数盈利，然后在只为盈利为正的时候买，把为正的利润加起来. c#代码：12345678910111213publi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法day32-">
+<meta property="og:url" content="https://cwu116.github.io/2023/03/17/%E7%AE%97%E6%B3%95day32/index.html">
+<meta property="og:site_name" content="Eddie&#39;s Space">
+<meta property="og:description" content="股票最佳时机II题目链接：https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;best-time-to-buy-and-sell-stock-ii&#x2F; 看题解前思路：局部最优是卖出一支盈利的股票，全局最优是全部卖出盈利的利润加起来. 用第二天的股价减去第一天的股价可以看到是否在对应天数盈利，然后在只为盈利为正的时候买，把为正的利润加起来. c#代码：12345678910111213publi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg">
+<meta property="article:published_time" content="2023-03-17T21:41:01.000Z">
+<meta property="article:modified_time" content="2023-03-17T22:38:57.497Z">
+<meta property="article:author" content="EddieChengjun">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="贪心">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg"><link rel="shortcut icon" href="https://i.328888.xyz/2023/02/25/7QL4H.jpeg"><link rel="canonical" href="https://cwu116.github.io/2023/03/17/%E7%AE%97%E6%B3%95day32/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-17 22:38:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://s1.ax1x.com/2023/02/13/pSIrJY9.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s1.ax1x.com/2023/02/13/pSIrleU.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Eddie's Space</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">算法day32-</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-03-17T21:41:01.000Z" title="Created 2023-03-17 21:41:01">2023-03-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-17T22:38:57.497Z" title="Updated 2023-03-17 22:38:57">2023-03-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="算法day32-"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h4 id="股票最佳时机II"><a href="#股票最佳时机II" class="headerlink" title="股票最佳时机II"></a>股票最佳时机II</h4><p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/">https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/</a></p>
+<h5 id="看题解前思路："><a href="#看题解前思路：" class="headerlink" title="看题解前思路："></a>看题解前思路：</h5><p>局部最优是卖出一支盈利的股票，全局最优是全部卖出盈利的利润加起来.</p>
+<p>用第二天的股价减去第一天的股价可以看到是否在对应天数盈利，然后在只为盈利为正的时候买，把为正的利润加起来.</p>
+<h5 id="c-代码："><a href="#c-代码：" class="headerlink" title="c#代码："></a>c#代码：</h5><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">MaxProfit</span>(<span class="params"><span class="built_in">int</span>[] prices</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">int</span> profit = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; prices.Length; i++)&#123;</span><br><span class="line">        <span class="built_in">int</span> count = prices[i] - prices[i<span class="number">-1</span>];<span class="comment">//局部利润</span></span><br><span class="line">        <span class="keyword">if</span>(count &gt; <span class="number">0</span>)</span><br><span class="line">            profit+= count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> profit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(N)  </p>
+<p>空间复杂度：O(1)</p>
+<h5 id="看题解后的思路："><a href="#看题解后的思路：" class="headerlink" title="看题解后的思路："></a>看题解后的思路：</h5><p>假如第0天买入，第3天卖出，那么利润为：prices[3] - prices[0]。</p>
+<p>相当于(prices[3] - prices[2]) + (prices[2] - prices[1]) + (prices[1] - prices[0])。</p>
+<p><strong>此时就是把利润分解为每天为单位的维度，而不是从0天到第3天整体去考虑！</strong></p>
+<p>那么根据prices可以得到每天的利润序列：(prices[i] - prices[i - 1])…..(prices[1] - prices[0])</p>
+<p>从图中可以发现，其实我们需要收集每天的正利润就可以，<strong>收集正利润的区间，就是股票买卖的区间，而我们只需要关注最终利润，不需要记录区间</strong>。</p>
+<p>那么只收集正利润就是贪心所贪的地方！</p>
+<p><strong>局部最优：收集每天的正利润，全局最优：求得最大利润</strong>。</p>
+<p><img src="https://i.328888.xyz/2023/03/18/LsrvE.png" alt="LsrvE.png"></p>
+<hr>
+<h4 id="跳跃游戏"><a href="#跳跃游戏" class="headerlink" title="跳跃游戏"></a>跳跃游戏</h4><p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/jump-game/">https://leetcode.cn/problems/jump-game/</a></p>
+<h5 id="看题解前思路：-1"><a href="#看题解前思路：-1" class="headerlink" title="看题解前思路："></a>看题解前思路：</h5><p>局部最优是每次取最大步数，整体最优是整体的最大步数.</p>
+<p>如果当前跳跃的最远距离比上一次跳的最远距离长，就使用使用这个更长的距离，每次跳跃递减1，如果能到终点返回true. </p>
+<h5 id="c-代码：-1"><a href="#c-代码：-1" class="headerlink" title="c#代码："></a>c#代码：</h5><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">CanJump</span>(<span class="params"><span class="built_in">int</span>[] nums</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">int</span> nextStep = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; nums.Length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nextStep &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(nextStep &lt; nums[i])</span><br><span class="line">        nextStep = nums[i];</span><br><span class="line"></span><br><span class="line">        nextStep --;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(N)   </p>
+<p>空间复杂度：O(1) </p>
+<h5 id="看题解后的思路：-1"><a href="#看题解后的思路：-1" class="headerlink" title="看题解后的思路："></a>看题解后的思路：</h5><p>其实跳几步无所谓，关键在于可跳的覆盖范围！</p>
+<p>不一定非要明确一次究竟跳几步，每次取最大的跳跃步数，这个就是可以跳跃的覆盖范围。</p>
+<p>这个范围内，别管是怎么跳的，反正一定可以跳过来。</p>
+<p><strong>那么这个问题就转化为跳跃覆盖范围究竟可不可以覆盖到终点！</strong></p>
+<p>每次移动取最大跳跃步数（得到最大的覆盖范围），每移动一个单位，就更新最大覆盖范围。</p>
+<p><strong>贪心算法局部最优解：每次取最大跳跃步数（取最大覆盖范围），整体最优解：最后得到整体最大覆盖范围，看是否能到终点</strong>。</p>
+<p>i每次移动只能在cover的范围内移动，每移动一个元素，cover得到该元素数值（新的覆盖范围）的补充，让i继续移动下去。</p>
+<p>而cover每次只取 max(该元素数值补充后的范围, cover本身范围)。</p>
+<p>如果cover大于等于了终点下标，直接return true就可以了。</p>
+<p><img src="https://i.328888.xyz/2023/03/18/LsxTA.png" alt="LsxTA.png"></p>
+<h5 id="更好的代码："><a href="#更好的代码：" class="headerlink" title="更好的代码："></a>更好的代码：</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canJump</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.length == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//覆盖范围, 初始覆盖范围应该是0，因为下面的迭代是从下标0开始的</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">coverRange</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//在覆盖范围内更新最大的覆盖范围</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= coverRange; i++) &#123;</span><br><span class="line">            coverRange = Math.max(coverRange, i + nums[i]);</span><br><span class="line">            <span class="keyword">if</span> (coverRange &gt;= nums.length - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="跳跃游戏II"><a href="#跳跃游戏II" class="headerlink" title="跳跃游戏II"></a>跳跃游戏II</h4><p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/jump-game-ii/">https://leetcode.cn/problems/jump-game-ii/</a></p>
+<h5 id="看题解前思路：-2"><a href="#看题解前思路：-2" class="headerlink" title="看题解前思路："></a>看题解前思路：</h5><p>自己没有想出来，思路写在看题解后</p>
+<h5 id="c-代码：-2"><a href="#c-代码：-2" class="headerlink" title="c#代码："></a>c#代码：</h5><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">Jump</span>(<span class="params"><span class="built_in">int</span>[] nums</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">int</span> setpCount = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">int</span> cur = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">int</span> next = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; nums.Length <span class="number">-1</span>; i++)&#123;<span class="comment">//这里到导数第二个位置就行，因为这里不如何+1步都能到最后一步</span></span><br><span class="line">        next = Math.Max(next,nums[i] + i);</span><br><span class="line">        <span class="keyword">if</span>(cur == i )&#123;<span class="comment">//超过当前最远范围，步数加一，更新最远范围</span></span><br><span class="line">            setpCount++;</span><br><span class="line">            cur=next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> setpCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(N) </p>
+<p>空间复杂度：O(1)	</p>
+<h5 id="看题解后的思路：-2"><a href="#看题解后的思路：-2" class="headerlink" title="看题解后的思路："></a>看题解后的思路：</h5><p>贪心的思路，局部最优：当前可移动距离尽可能多走，如果还没到终点，步数再加一。整体最优：一步尽可能多走，从而达到最小步数。</p>
+<p><strong>所以真正解题的时候，要从覆盖范围出发，不管怎么跳，覆盖范围内一定是可以跳到的，以最小的步数增加覆盖范围，覆盖范围一旦覆盖了终点，得到的就是最小步数！</strong></p>
+<p><strong>这里需要统计两个覆盖范围，当前这一步的最大覆盖和下一步最大覆盖</strong>。</p>
+<p>如果移动下标达到了当前这一步的最大覆盖最远距离了，还没有到终点的话，那么就必须再走一步来增加覆盖范围，直到覆盖范围覆盖了终点。</p>
+<p><img src="https://i.328888.xyz/2023/03/18/LsepN.png" alt="LsepN.png"><br><img src="https://i.328888.xyz/2023/03/18/Lsz9V.png" alt="Lsz9V.png"></p>
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://programmercarl.com/0045.%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8FII.html#%E6%80%9D%E8%B7%AF">https://programmercarl.com/0045.%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8FII.html#%E6%80%9D%E8%B7%AF</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">EddieChengjun</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://cwu116.github.io/2023/03/17/%E7%AE%97%E6%B3%95day32/">https://cwu116.github.io/2023/03/17/%E7%AE%97%E6%B3%95day32/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a></div><div class="post_share"><div class="social-share" data-image="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/03/17/%E7%AE%97%E6%B3%95day31/"><img class="next-cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">算法day31-贪心算法,分发饼干,摆动序列,最大子序和</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/03/17/算法day31/" title="算法day31-贪心算法,分发饼干,摆动序列,最大子序和"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-17</div><div class="title">算法day31-贪心算法,分发饼干,摆动序列,最大子序和</div></div></a></div><div><a href="/2023/02/14/算法day01-二分查找-删除指定数字/" title="算法day01-二分查找,删除指定数字"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-14</div><div class="title">算法day01-二分查找,删除指定数字</div></div></a></div><div><a href="/2023/02/15/算法day02-有序数组的平方-长度最小的子数组-螺旋矩阵II/" title="算法day02-有序数组的平方，长度最小的子数组，螺旋矩阵II"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-15</div><div class="title">算法day02-有序数组的平方，长度最小的子数组，螺旋矩阵II</div></div></a></div><div><a href="/2023/02/16/算法day03-移除链表元素，设计链表，反转链表/" title="算法day03-移除链表元素，设计链表，反转链表"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-16</div><div class="title">算法day03-移除链表元素，设计链表，反转链表</div></div></a></div><div><a href="/2023/02/17/算法day04-两两交换列表，删除倒数K个数，链表相交，环形链表II/" title="算法day04-两两交换链表，删除倒数K个数，链表相交，环形链表II"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-17</div><div class="title">算法day04-两两交换链表，删除倒数K个数，链表相交，环形链表II</div></div></a></div><div><a href="/2023/02/19/算法day05/" title="算法day05-哈希表,有效字母异位词，两个数组的交集，快乐数，两数之和"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-19</div><div class="title">算法day05-哈希表,有效字母异位词，两个数组的交集，快乐数，两数之和</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://s1.ax1x.com/2023/02/13/pSIrJY9.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">EddieChengjun</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/cwu116"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%82%A1%E7%A5%A8%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAII"><span class="toc-number">1.</span> <span class="toc-text">股票最佳时机II</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%89%8D%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">看题解前思路：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#c-%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">c#代码：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%90%8E%E7%9A%84%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">看题解后的思路：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F"><span class="toc-number">2.</span> <span class="toc-text">跳跃游戏</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%89%8D%E6%80%9D%E8%B7%AF%EF%BC%9A-1"><span class="toc-number">2.1.</span> <span class="toc-text">看题解前思路：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#c-%E4%BB%A3%E7%A0%81%EF%BC%9A-1"><span class="toc-number">2.2.</span> <span class="toc-text">c#代码：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%90%8E%E7%9A%84%E6%80%9D%E8%B7%AF%EF%BC%9A-1"><span class="toc-number">2.3.</span> <span class="toc-text">看题解后的思路：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-number">2.4.</span> <span class="toc-text">更好的代码：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8FII"><span class="toc-number">3.</span> <span class="toc-text">跳跃游戏II</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%89%8D%E6%80%9D%E8%B7%AF%EF%BC%9A-2"><span class="toc-number">3.1.</span> <span class="toc-text">看题解前思路：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#c-%E4%BB%A3%E7%A0%81%EF%BC%9A-2"><span class="toc-number">3.2.</span> <span class="toc-text">c#代码：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%90%8E%E7%9A%84%E6%80%9D%E8%B7%AF%EF%BC%9A-2"><span class="toc-number">3.3.</span> <span class="toc-text">看题解后的思路：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/17/%E7%AE%97%E6%B3%95day32/" title="算法day32-"><img src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法day32-"/></a><div class="content"><a class="title" href="/2023/03/17/%E7%AE%97%E6%B3%95day32/" title="算法day32-">算法day32-</a><time datetime="2023-03-17T21:41:01.000Z" title="Created 2023-03-17 21:41:01">2023-03-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/17/%E7%AE%97%E6%B3%95day31/" title="算法day31-贪心算法,分发饼干,摆动序列,最大子序和"><img src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法day31-贪心算法,分发饼干,摆动序列,最大子序和"/></a><div class="content"><a class="title" href="/2023/03/17/%E7%AE%97%E6%B3%95day31/" title="算法day31-贪心算法,分发饼干,摆动序列,最大子序和">算法day31-贪心算法,分发饼干,摆动序列,最大子序和</a><time datetime="2023-03-17T09:51:01.000Z" title="Created 2023-03-17 09:51:01">2023-03-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/15/%E7%AE%97%E6%B3%95day30/" title="算法day30-重新安排行程,N皇后,解数独"><img src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法day30-重新安排行程,N皇后,解数独"/></a><div class="content"><a class="title" href="/2023/03/15/%E7%AE%97%E6%B3%95day30/" title="算法day30-重新安排行程,N皇后,解数独">算法day30-重新安排行程,N皇后,解数独</a><time datetime="2023-03-15T21:51:01.000Z" title="Created 2023-03-15 21:51:01">2023-03-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/15/%E7%AE%97%E6%B3%95day29/" title="算法day29-递增子序列,全排列,全排列II"><img src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法day29-递增子序列,全排列,全排列II"/></a><div class="content"><a class="title" href="/2023/03/15/%E7%AE%97%E6%B3%95day29/" title="算法day29-递增子序列,全排列,全排列II">算法day29-递增子序列,全排列,全排列II</a><time datetime="2023-03-15T14:51:01.000Z" title="Created 2023-03-15 14:51:01">2023-03-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/14/%E7%AE%97%E6%B3%95day28/" title="算法day28-复原Ip地址,子集,子集II"><img src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法day28-复原Ip地址,子集,子集II"/></a><div class="content"><a class="title" href="/2023/03/14/%E7%AE%97%E6%B3%95day28/" title="算法day28-复原Ip地址,子集,子集II">算法day28-复原Ip地址,子集,子集II</a><time datetime="2023-03-14T11:43:01.000Z" title="Created 2023-03-14 11:43:01">2023-03-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By EddieChengjun</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
