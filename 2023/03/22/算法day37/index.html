@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>算法day37-单调递增的数字,监控二叉树 | Eddie's Space</title><meta name="keywords" content="算法,贪心"><meta name="author" content="EddieChengjun"><meta name="copyright" content="EddieChengjun"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="单调递增的数字题目链接：https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;monotone-increasing-digits&#x2F; 看题解前思路：自己想的思路是如果比前一位小，就减去前一位的数字. 这是局部最优，全局最优是使得数字单调递增. 但是这个想法应该不算很好，思路写在题解后. c#代码：12345678910111213141516171819202122public class S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法day37-单调递增的数字,监控二叉树">
+<meta property="og:url" content="https://cwu116.github.io/2023/03/22/%E7%AE%97%E6%B3%95day37/index.html">
+<meta property="og:site_name" content="Eddie&#39;s Space">
+<meta property="og:description" content="单调递增的数字题目链接：https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;monotone-increasing-digits&#x2F; 看题解前思路：自己想的思路是如果比前一位小，就减去前一位的数字. 这是局部最优，全局最优是使得数字单调递增. 但是这个想法应该不算很好，思路写在题解后. c#代码：12345678910111213141516171819202122public class S">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg">
+<meta property="article:published_time" content="2023-03-22T22:27:01.000Z">
+<meta property="article:modified_time" content="2023-03-23T10:50:59.994Z">
+<meta property="article:author" content="EddieChengjun">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="贪心">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg"><link rel="shortcut icon" href="https://i.328888.xyz/2023/02/25/7QL4H.jpeg"><link rel="canonical" href="https://cwu116.github.io/2023/03/22/%E7%AE%97%E6%B3%95day37/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-23 10:50:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://s1.ax1x.com/2023/02/13/pSIrJY9.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">34</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s1.ax1x.com/2023/02/13/pSIrleU.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Eddie's Space</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">算法day37-单调递增的数字,监控二叉树</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-03-22T22:27:01.000Z" title="Created 2023-03-22 22:27:01">2023-03-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-23T10:50:59.994Z" title="Updated 2023-03-23 10:50:59">2023-03-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="算法day37-单调递增的数字,监控二叉树"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h4 id="单调递增的数字"><a href="#单调递增的数字" class="headerlink" title="单调递增的数字"></a>单调递增的数字</h4><p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/monotone-increasing-digits/">https://leetcode.cn/problems/monotone-increasing-digits/</a></p>
+<h5 id="看题解前思路："><a href="#看题解前思路：" class="headerlink" title="看题解前思路："></a>看题解前思路：</h5><p>自己想的思路是如果比前一位小，就减去前一位的数字. 这是局部最优，全局最优是使得数字单调递增. 但是这个想法应该不算很好，思路写在题解后.</p>
+<h5 id="c-代码："><a href="#c-代码：" class="headerlink" title="c#代码："></a>c#代码：</h5><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">MonotoneIncreasingDigits</span>(<span class="params"><span class="built_in">int</span> n</span>)</span> &#123;</span><br><span class="line">    StringBuilder str = <span class="keyword">new</span> StringBuilder(n.ToString());</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// flag用来标记赋值9从哪里开始</span></span><br><span class="line">    <span class="comment">// 设置为这个默认值，为了防止第二个for循环在flag没有被赋值的情况下执行    </span></span><br><span class="line">    <span class="built_in">int</span> flag = <span class="built_in">int</span>.MaxValue;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = str.Length <span class="number">-1</span> ; i &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(str[i<span class="number">-1</span>] &gt; str[i])&#123;</span><br><span class="line">            str[i<span class="number">-1</span>] --;</span><br><span class="line">            flag = i;</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="comment">// str = str[0..(i-1)] + (str[i-1] -1) + &#x27;9&#x27;;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = flag; i &lt; str.Length; i++) &#123;</span><br><span class="line">            str[i] = <span class="string">&#x27;9&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">int</span>.Parse(str.ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(N) 加上排序的时间   </p>
+<p>空间复杂度：O(n) </p>
+<h5 id="看题解后的思路："><a href="#看题解后的思路：" class="headerlink" title="看题解后的思路："></a>看题解后的思路：</h5><p>贪心的思路应该是如果前一位比这一位大，直接前一位–，这一位的数字改成9，这样就可以一步直接比上一位大.</p>
+<p>然后是遍历的顺序，应该是从后往前遍历，数字：332，从前向后遍历的话，那么就把变成了329，此时2又小于了第一位的3了，真正的结果应该是299.</p>
+<p>那么从后向前遍历，就可以重复利用上次比较得出的结果了，从后向前遍历332的数值变化为：332 -&gt; 329 -&gt; 299.</p>
+<p>最后用flag标记9开始的位置. 为什么要用flag:</p>
+<ol>
+<li>首次出现s[i]&gt;s[i+1]的地方少1</li>
+<li>后面数字全部改成9</li>
+</ol>
+<p>s[i]前面仍然可能存在相等元素, 例如23555478首次出现是千位, 但我们改成23554999就会破坏前面的单增, 因此要从第一个5处少1, 改成23499999</p>
+<hr>
+<h4 id="监控二叉树"><a href="#监控二叉树" class="headerlink" title="监控二叉树"></a>监控二叉树</h4><p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-tree-cameras/">https://leetcode.cn/problems/binary-tree-cameras/</a></p>
+<h5 id="看题解前思路：-1"><a href="#看题解前思路：-1" class="headerlink" title="看题解前思路："></a>看题解前思路：</h5><p>局部最优是尽可能在连接节点多的地方放摄像头，这样可以覆盖多个，全局最优是消耗摄像头数量最小. 但是实现的时候没有想到太好的思路. 思路写在看题解后. </p>
+<h5 id="c-代码：-1"><a href="#c-代码：-1" class="headerlink" title="c#代码："></a>c#代码：</h5><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">MinCameraCover</span>(<span class="params">TreeNode root</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(BackTracking(root) == <span class="number">0</span>)</span><br><span class="line">        count ++;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">int</span> count;</span><br><span class="line">    <span class="comment">//0 无覆盖</span></span><br><span class="line">    <span class="comment">//1 有摄像头</span></span><br><span class="line">    <span class="comment">//2 有覆盖</span></span><br><span class="line">    <span class="function"><span class="built_in">int</span> <span class="title">BackTracking</span>(<span class="params">TreeNode root</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">int</span> left = BackTracking(root.left);</span><br><span class="line">        <span class="built_in">int</span> right =BackTracking(root.right);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(left == <span class="number">0</span> || right == <span class="number">0</span>)&#123;<span class="comment">//左右节点有一个没覆盖</span></span><br><span class="line">            count ++;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(left ==<span class="number">1</span> || right == <span class="number">1</span>)&#123;<span class="comment">//左右节点有一个是摄像头</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(left == <span class="number">2</span> &amp;&amp; right == <span class="number">2</span>)&#123;<span class="comment">//左右节点都被覆盖</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(N)   其中 n 为二叉树节点的个数.每个节点在递归中只被遍历一次.</p>
+<p>空间复杂度：O(height)	其中 height表示二叉树的高度，递归函数需要栈空间，而栈空间取决于递归的深度，因此空间复杂度等价于二叉树的高度.</p>
+<h5 id="看题解后的思路：-1"><a href="#看题解后的思路：-1" class="headerlink" title="看题解后的思路："></a>看题解后的思路：</h5><p>首先需要确定如何让放的摄像头最少.</p>
+<p>从题目中可以看到示例的摄像头都没放在叶子节点.  因为放叶子节点比较亏，只能覆盖一层.</p>
+<p>头节点同理，因为头结点放不放摄像头也就省下一个摄像头， 叶子节点放不放摄像头省下了的摄像头数量是指数阶别的. </p>
+<p><strong>所以我们要从下往上看，局部最优：让叶子节点的父节点安摄像头，所用摄像头最少，整体最优：全部摄像头数量所用最少</strong></p>
+<p>此时，大体思路就是从低到上，先给叶子节点父节点放个摄像头，然后隔两个节点放一个摄像头，直至到二叉树头结点.</p>
+<p>此时这道题目还有两个难点：</p>
+<ol>
+<li>二叉树的遍历</li>
+<li>如何隔两个节点放一个摄像头</li>
+</ol>
+<p>从子节点向上推导：使用后序遍历, <strong>取了左孩子的返回值，右孩子的返回值，即left 和 right， 以后推导中间节点的状态</strong></p>
+<p>如何隔两个节点放一个摄像头：</p>
+<p>每个节点可能的情况：</p>
+<ul>
+<li>0：该节点无覆盖</li>
+<li>1：本节点有摄像头</li>
+<li>2：本节点有覆盖</li>
+</ul>
+<p><strong>因为在遍历树的过程中，就会遇到空节点，那么问题来了，空节点究竟是哪一种状态呢？ 空节点表示无覆盖？ 表示有摄像头？还是有覆盖呢？</strong></p>
+<p>回归本质，为了让摄像头数量最少，我们要尽量让叶子节点的父节点安装摄像头，这样才能摄像头的数量最少.</p>
+<p>那么空节点不能是无覆盖的状态，这样叶子节点就要放摄像头了，空节点也不能是有摄像头的状态，这样叶子节点的父节点就没有必要放摄像头了，而是可以把摄像头放在叶子节点的爷爷节点上.</p>
+<p>所以终止条件是 返回 2 有覆盖的情况.</p>
+<p>再来看其他情况:</p>
+<p>情况1：左右节点都有覆盖</p>
+<p>这个中间节点不用做处理，无覆盖 返回0.</p>
+<p>情况2：左右节点至少有一个无覆盖</p>
+<p>这个情况中间节点必须要放摄像头，返回1.</p>
+<p>情况3：左右节点至少有一个摄像头</p>
+<p>中间节点被覆盖，返回2</p>
+<p>情况4：</p>
+<p>最后递归完了判断头节点是否被覆盖，没被覆盖需要多添加一个摄像头.</p>
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://programmercarl.com/0968.%E7%9B%91%E6%8E%A7%E4%BA%8C%E5%8F%89%E6%A0%91.html#%E6%80%9D%E8%B7%AF">https://programmercarl.com/0968.%E7%9B%91%E6%8E%A7%E4%BA%8C%E5%8F%89%E6%A0%91.html#%E6%80%9D%E8%B7%AF</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">EddieChengjun</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://cwu116.github.io/2023/03/22/%E7%AE%97%E6%B3%95day37/">https://cwu116.github.io/2023/03/22/%E7%AE%97%E6%B3%95day37/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a></div><div class="post_share"><div class="social-share" data-image="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/03/22/%E7%AE%97%E6%B3%95day36/"><img class="prev-cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">算法day36-无重叠区间,划分字母区间,合并区间</div></div></a></div><div class="next-post pull-right"><a href="/2023/03/21/%E7%AE%97%E6%B3%95day34/"><img class="next-cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">算法day35-柠檬水找零,根据身高重建队列,用最少的数量的箭引爆气球</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/03/17/算法day31/" title="算法day31-贪心算法,分发饼干,摆动序列,最大子序和"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-17</div><div class="title">算法day31-贪心算法,分发饼干,摆动序列,最大子序和</div></div></a></div><div><a href="/2023/03/17/算法day32/" title="算法day32-股票最佳时机II,跳跃游戏,跳跃游戏II"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-17</div><div class="title">算法day32-股票最佳时机II,跳跃游戏,跳跃游戏II</div></div></a></div><div><a href="/2023/03/21/算法day34/" title="算法day35-柠檬水找零,根据身高重建队列,用最少的数量的箭引爆气球"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-21</div><div class="title">算法day35-柠檬水找零,根据身高重建队列,用最少的数量的箭引爆气球</div></div></a></div><div><a href="/2023/03/21/算法day33/" title="算法day34-K次取反后最大化的数组和,加油站,分发糖果"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-21</div><div class="title">算法day34-K次取反后最大化的数组和,加油站,分发糖果</div></div></a></div><div><a href="/2023/03/22/算法day36/" title="算法day36-无重叠区间,划分字母区间,合并区间"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-22</div><div class="title">算法day36-无重叠区间,划分字母区间,合并区间</div></div></a></div><div><a href="/2023/02/14/算法day01-二分查找-删除指定数字/" title="算法day01-二分查找,删除指定数字"><img class="cover" src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-14</div><div class="title">算法day01-二分查找,删除指定数字</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://s1.ax1x.com/2023/02/13/pSIrJY9.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">EddieChengjun</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">34</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/cwu116"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E9%80%92%E5%A2%9E%E7%9A%84%E6%95%B0%E5%AD%97"><span class="toc-number">1.</span> <span class="toc-text">单调递增的数字</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%89%8D%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">看题解前思路：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#c-%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">c#代码：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%90%8E%E7%9A%84%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">看题解后的思路：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%91%E6%8E%A7%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-number">2.</span> <span class="toc-text">监控二叉树</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%89%8D%E6%80%9D%E8%B7%AF%EF%BC%9A-1"><span class="toc-number">2.1.</span> <span class="toc-text">看题解前思路：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#c-%E4%BB%A3%E7%A0%81%EF%BC%9A-1"><span class="toc-number">2.2.</span> <span class="toc-text">c#代码：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%90%8E%E7%9A%84%E6%80%9D%E8%B7%AF%EF%BC%9A-1"><span class="toc-number">2.3.</span> <span class="toc-text">看题解后的思路：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/22/%E7%AE%97%E6%B3%95day36/" title="算法day36-无重叠区间,划分字母区间,合并区间"><img src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法day36-无重叠区间,划分字母区间,合并区间"/></a><div class="content"><a class="title" href="/2023/03/22/%E7%AE%97%E6%B3%95day36/" title="算法day36-无重叠区间,划分字母区间,合并区间">算法day36-无重叠区间,划分字母区间,合并区间</a><time datetime="2023-03-22T22:27:01.000Z" title="Created 2023-03-22 22:27:01">2023-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/22/%E7%AE%97%E6%B3%95day37/" title="算法day37-单调递增的数字,监控二叉树"><img src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法day37-单调递增的数字,监控二叉树"/></a><div class="content"><a class="title" href="/2023/03/22/%E7%AE%97%E6%B3%95day37/" title="算法day37-单调递增的数字,监控二叉树">算法day37-单调递增的数字,监控二叉树</a><time datetime="2023-03-22T22:27:01.000Z" title="Created 2023-03-22 22:27:01">2023-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/21/%E7%AE%97%E6%B3%95day34/" title="算法day35-柠檬水找零,根据身高重建队列,用最少的数量的箭引爆气球"><img src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法day35-柠檬水找零,根据身高重建队列,用最少的数量的箭引爆气球"/></a><div class="content"><a class="title" href="/2023/03/21/%E7%AE%97%E6%B3%95day34/" title="算法day35-柠檬水找零,根据身高重建队列,用最少的数量的箭引爆气球">算法day35-柠檬水找零,根据身高重建队列,用最少的数量的箭引爆气球</a><time datetime="2023-03-21T19:21:01.000Z" title="Created 2023-03-21 19:21:01">2023-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/21/%E7%AE%97%E6%B3%95day33/" title="算法day34-K次取反后最大化的数组和,加油站,分发糖果"><img src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法day34-K次取反后最大化的数组和,加油站,分发糖果"/></a><div class="content"><a class="title" href="/2023/03/21/%E7%AE%97%E6%B3%95day33/" title="算法day34-K次取反后最大化的数组和,加油站,分发糖果">算法day34-K次取反后最大化的数组和,加油站,分发糖果</a><time datetime="2023-03-21T00:11:01.000Z" title="Created 2023-03-21 00:11:01">2023-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/17/%E7%AE%97%E6%B3%95day32/" title="算法day32-股票最佳时机II,跳跃游戏,跳跃游戏II"><img src="https://s1.ax1x.com/2023/02/13/pSIrleU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法day32-股票最佳时机II,跳跃游戏,跳跃游戏II"/></a><div class="content"><a class="title" href="/2023/03/17/%E7%AE%97%E6%B3%95day32/" title="算法day32-股票最佳时机II,跳跃游戏,跳跃游戏II">算法day32-股票最佳时机II,跳跃游戏,跳跃游戏II</a><time datetime="2023-03-17T21:41:01.000Z" title="Created 2023-03-17 21:41:01">2023-03-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By EddieChengjun</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
